@@ -18,7 +18,11 @@ $(document).ready(function () {
   currentQuestion = questionGenerator();
   $('#equation').text(currentQuestion.equation);
 
+  var checkAnswer = function (userInput, answer) {
+    console.log(userInput === answer);
+  }
+
   $('#user-input').on('keyup', function () {
-    console.log($(this).val());
+    checkAnswer(Number($(this).val()), currentQuestion.answer);
   });
 });
