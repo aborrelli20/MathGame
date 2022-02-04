@@ -19,6 +19,7 @@ $(document).ready(function () {
   $('#equation').text(currentQuestion.equation);
 
   var timeLeft = 10;
+  var interval;
 
   var askNewQuestion = function () {
     currentQuestion = questionGenerator();
@@ -34,16 +35,21 @@ $(document).ready(function () {
   }
 
   $('#user-input').on('keyup', function () {
+    startGame();
     checkAnswer(Number($(this).val()), currentQuestion.answer);
   });
 
-  var interval = setInterval(function () {
-    updateTimeLeft(-1);
-    $('#time-left').text(timeLeft);
-    if (timeLeft === 0) {
-      clearInterval(interval);
+  var startGame = function () {
+    if (!interval) {
+      interval = setInterval(function () {
+        updateTimeLeft(-1);
+        if (timeLeft === 0) {
+          clearInterval(interval);
+          interval = undefined;
+        }
+      }, 1000);
     }
-  }, 1000);
+  }
 
   var updateTimeLeft = function (amount) {
     timeLeft += amount;
