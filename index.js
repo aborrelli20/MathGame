@@ -20,6 +20,7 @@ $(document).ready(function () {
 
   var timeLeft = 10;
   var interval;
+  var score = 0;
 
   var askNewQuestion = function () {
     currentQuestion = questionGenerator();
@@ -31,6 +32,7 @@ $(document).ready(function () {
       askNewQuestion();
       $('#user-input').val('');
       updateTimeLeft(+1);
+      updateScore(+1);
     }
   }
 
@@ -41,6 +43,10 @@ $(document).ready(function () {
 
   var startGame = function () {
     if (!interval) {
+      if (timeLeft === 0) {
+        updateTimeLeft(10);
+        updateScore(-score);
+      }
       interval = setInterval(function () {
         updateTimeLeft(-1);
         if (timeLeft === 0) {
@@ -55,5 +61,10 @@ $(document).ready(function () {
     timeLeft += amount;
     $('#time-left').text(timeLeft);
   }
+
+  var updateScore = function (amount) {
+    score += amount;
+    $('#score').text(score);
+  };
 
 });
