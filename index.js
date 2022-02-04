@@ -18,11 +18,22 @@ $(document).ready(function () {
   currentQuestion = questionGenerator();
   $('#equation').text(currentQuestion.equation);
 
+  var askNewQuestion = function () {
+    currentQuestion = questionGenerator();
+    $('#equation').text(currentQuestion.equation);
+  }
+
   var checkAnswer = function (userInput, answer) {
-    console.log(userInput === answer);
+    if (userInput === answer) {
+      askNewQuestion();
+      $('#user-input').val('');
+    }
   }
 
   $('#user-input').on('keyup', function () {
     checkAnswer(Number($(this).val()), currentQuestion.answer);
   });
+
+
+
 });
