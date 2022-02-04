@@ -29,6 +29,7 @@ $(document).ready(function () {
     if (userInput === answer) {
       askNewQuestion();
       $('#user-input').val('');
+      updateTimeLeft(+1);
     }
   }
 
@@ -37,12 +38,16 @@ $(document).ready(function () {
   });
 
   var interval = setInterval(function () {
-    timeLeft--;
+    updateTimeLeft(-1);
     $('#time-left').text(timeLeft);
     if (timeLeft === 0) {
       clearInterval(interval);
     }
-    console.log(timeLeft);
   }, 1000);
+
+  var updateTimeLeft = function (amount) {
+    timeLeft += amount;
+    $('#time-left').text(timeLeft);
+  }
 
 });
