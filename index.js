@@ -18,6 +18,8 @@ $(document).ready(function () {
   currentQuestion = questionGenerator();
   $('#equation').text(currentQuestion.equation);
 
+  var timeLeft = 10;
+
   var askNewQuestion = function () {
     currentQuestion = questionGenerator();
     $('#equation').text(currentQuestion.equation);
@@ -34,6 +36,13 @@ $(document).ready(function () {
     checkAnswer(Number($(this).val()), currentQuestion.answer);
   });
 
-
+  var interval = setInterval(function () {
+    timeLeft--;
+    $('#time-left').text(timeLeft);
+    if (timeLeft === 0) {
+      clearInterval(interval);
+    }
+    console.log(timeLeft);
+  }, 1000);
 
 });
