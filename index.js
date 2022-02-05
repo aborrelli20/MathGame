@@ -6,7 +6,7 @@ $(document).ready(function () {
 
   var userNumber = prompt('Enter how high you would like the numbers in your equation to be: ');
 
-  var questionGenerator = function () {
+  var addition = function () {
     var question = {};
     var num1 = randomNumberGenerator(userNumber);
     var num2 = randomNumberGenerator(userNumber);
@@ -17,7 +17,64 @@ $(document).ready(function () {
     return question;
   }
 
-  currentQuestion = questionGenerator();
+  var subtraction = function () {
+    var question = {};
+    var num1 = randomNumberGenerator(userNumber);
+    var num2 = randomNumberGenerator(userNumber);
+
+    if (num1 > num2) {
+      question.answer = num1 - num2;
+      question.equation = String(num1) + " - " + String(num2);
+    } else {
+      question.answer = num2 - num1;
+      question.equation = String(num2) + " - " + String(num1);
+    }
+    return question;
+  }
+
+  var multiplication = function () {
+    var question = {};
+    var num1 = randomNumberGenerator(userNumber);
+    var num2 = randomNumberGenerator(userNumber);
+
+    question.answer = num1 * num2;
+    question.equation = String(num1) + " * " + String(num2);
+
+    return question;
+  }
+
+  var division = function () {
+    var question = {};
+    var num1 = randomNumberGenerator(userNumber);
+    var num2 = randomNumberGenerator(userNumber);
+    while (num1 % num2 !== 0) {
+      num1 = randomNumberGenerator(userNumber);
+      num2 = randomNumberGenerator(userNumber);
+    }
+    if (num1 % num2 === 0) {
+      question.answer = num1 / num2;
+      question.equation = String(num1) + " / " + String(num2);
+    }
+
+    return question;
+  }
+
+  var randomQuestionGenerator = function () {
+    var questionNum = Math.floor(Math.random() * 4);
+    if (questionNum === 0) {
+      currentQuestion = addition();
+    } else if (questionNum === 1) {
+      currentQuestion = subtraction();
+    } else if (questionNum === 2) {
+      currentQuestion = multiplication();
+    } else if (questionNum === 3) {
+      currentQuestion = division();
+    }
+  }
+
+
+
+  randomQuestionGenerator();
   $('#equation').text(currentQuestion.equation);
 
   var timeLeft = 10;
@@ -26,7 +83,7 @@ $(document).ready(function () {
   var highScore = 0;
 
   var askNewQuestion = function () {
-    currentQuestion = questionGenerator();
+    randomQuestionGenerator();
     $('#equation').text(currentQuestion.equation);
   }
 
