@@ -4,10 +4,12 @@ $(document).ready(function () {
     return Math.ceil(Math.random() * size);
   }
 
+  var userNumber = prompt('Enter how high you would like the numbers in your equation to be: ');
+
   var questionGenerator = function () {
     var question = {};
-    var num1 = randomNumberGenerator(10);
-    var num2 = randomNumberGenerator(10);
+    var num1 = randomNumberGenerator(userNumber);
+    var num2 = randomNumberGenerator(userNumber);
 
     question.answer = num1 + num2;
     question.equation = String(num1) + " + " + String(num2);
@@ -22,7 +24,6 @@ $(document).ready(function () {
   var interval;
   var score = 0;
   var highScore = 0;
-  const SAVE_KEY_SCORE = "highscore";
 
   var askNewQuestion = function () {
     currentQuestion = questionGenerator();
