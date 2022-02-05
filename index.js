@@ -21,6 +21,8 @@ $(document).ready(function () {
   var timeLeft = 10;
   var interval;
   var score = 0;
+  var highScore = 0;
+  const SAVE_KEY_SCORE = "highscore";
 
   var askNewQuestion = function () {
     currentQuestion = questionGenerator();
@@ -55,6 +57,7 @@ $(document).ready(function () {
         }
       }, 1000);
     }
+
   }
 
   var updateTimeLeft = function (amount) {
@@ -64,6 +67,10 @@ $(document).ready(function () {
 
   var updateScore = function (amount) {
     score += amount;
+    if (score > highScore) {
+      highScore = score;
+    }
+    $('#high-score').text(highScore);
     $('#score').text(score);
   };
 
